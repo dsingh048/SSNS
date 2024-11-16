@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynamic Website Cloner with Reverse Indexing</title>
+  
+  <!-- Ensure the styles are included in a proper way -->
+  <link rel="stylesheet" type="text/css" href="styles.css"> <!-- Ensure styles.css is correctly placed -->
+  
   <style>
-     /* General body styling */
-
-
+    /* General body styling */
     body {
         font-family: Arial, sans-serif;
         width: 1180px;
@@ -156,7 +158,6 @@
         margin-right: 20px;
     }
 
-
   </style>
 </head>
 <body>
@@ -179,8 +180,17 @@
 
         // Clone styles
         const styles = doc.querySelectorAll('link[rel="stylesheet"][type="text/css"], style');
-        document.head.innerHTML = ""; // Clear current styles
-        styles.forEach(style => document.head.appendChild(style.cloneNode(true)));
+        
+        // Ensure proper styles are added to the head
+        styles.forEach(style => {
+          if (style.tagName === 'LINK') {
+            const linkClone = style.cloneNode(true);
+            document.head.appendChild(linkClone);
+          } else if (style.tagName === 'STYLE') {
+            const styleClone = style.cloneNode(true);
+            document.head.appendChild(styleClone);
+          }
+        });
 
         // Clone and modify the body content
         const content = doc.body.cloneNode(true);
