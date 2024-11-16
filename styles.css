@@ -1,0 +1,148 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    width: 1180px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-shadow: 0 5px 5px 0px #888;
+    -moz-box-shadow: 0 5px 5px 0px #888;
+    box-shadow: 0 5px 5px 0px #888;
+}
+
+/* Year Selector */
+div#year-selector {
+    float: left;
+    margin-left: 20px;
+    width: 665px;
+}
+
+div#year-selector a:link {
+    color: #d46b08;
+    background: #FBF0E5;
+    font-size: 11pt;
+}
+
+div#year-selector a:hover {
+    color: #735b29;
+    background: #FBF0E5;
+    font-size: 11pt;
+}
+
+div#year-selector a:visited {
+    color: #735b29;
+    background: #FBF0E5;
+    font-size: 11pt;
+}
+
+/* Sidebar */
+div#sidebar {
+    color: #707173;
+    font-size: 11pt;
+    text-decoration: none;
+    float: left;
+    margin-left: 20px;
+}
+
+div#sidebar a:link {
+    color: #d46b08;
+    background: #FBF0E5;
+    font-size: 11pt;
+    text-decoration: none;
+    background-image: url('https://your-repo-url/images/small/Deko2.png');
+    padding-left: 20px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+div#sidebar a:hover {
+    color: #735b29;
+    background: #FBF0E5;
+    font-size: 11pt;
+    text-decoration: underline;
+    background-image: url('https://your-repo-url/images/small/Deko3.png');
+    padding-left: 20px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+div#sidebar a:visited {
+    color: #735b29;
+    background: #FBF0E5;
+    font-size: 11pt;
+    text-decoration: none;
+    background-image: url('https://your-repo-url/images/small/Deko3.png');
+    padding-left: 20px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+/* Index Section */
+div#index {
+    color: #707173;
+    font-size: 12pt;
+    margin-left: 20px;
+    clear: left;
+}
+
+div#index a:link {
+    color: #707173;
+}
+
+div#index a:visited {
+    color: #735b29;
+}
+
+div#index a:hover {
+    color: #d46b08;
+}
+
+/* Image */
+img {
+    border: 1px solid white;
+}
+
+/* Footer */
+div#footer {
+    color: #707173;
+    font-size: 9pt;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+/* Copyleft Section */
+div#copyleft {
+    float: left;
+    width: 685px;
+}
+
+/* Facebook Section */
+div#fbook {
+    float: left;
+}
+
+div#fbook a:link {
+    color: #707173;
+    text-decoration: none;
+}
+
+div#fbook a:visited {
+    color: #735b29;
+    text-decoration: none;
+}
+
+div#fbook a:hover {
+    color: #d46b08;
+    text-decoration: underline;
+}
+
+/* Horizontal Rule */
+HR {
+    border-top: 1px dotted #707173;
+    color: #707173;
+    height: 0px;
+    width: 96%;
+    float: left;
+    margin-left: 20px;
+    margin-right: 20px;
+}
