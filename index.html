@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynamic Website Cloner with Reverse Indexing</title>
-  
-  <!-- Ensure the styles are included in a proper way -->
-  <link rel="stylesheet" type="text/css" href="styles.css"> <!-- Ensure styles.css is correctly placed -->
-  
   <style>
     /* General body styling */
     body {
@@ -60,7 +56,7 @@
         background: #FBF0E5;
         font-size: 11pt;
         text-decoration: none;
-        background-image: url('/images/small/Deko2.png');
+        background-image: url('https://your-repo-url/images/small/Deko2.png');
         padding-left: 20px;
         background-position: left;
         background-repeat: no-repeat;
@@ -71,7 +67,7 @@
         background: #FBF0E5;
         font-size: 11pt;
         text-decoration: underline;
-        background-image: url('/images/small/Deko3.png');
+        background-image: url('https://your-repo-url/images/small/Deko3.png');
         padding-left: 20px;
         background-position: left;
         background-repeat: no-repeat;
@@ -82,7 +78,7 @@
         background: #FBF0E5;
         font-size: 11pt;
         text-decoration: none;
-        background-image: url('/images/small/Deko3.png');
+        background-image: url('https://your-repo-url/images/small/Deko3.png');
         padding-left: 20px;
         background-position: left;
         background-repeat: no-repeat;
@@ -157,7 +153,6 @@
         margin-left: 20px;
         margin-right: 20px;
     }
-
   </style>
 </head>
 <body>
@@ -180,17 +175,8 @@
 
         // Clone styles
         const styles = doc.querySelectorAll('link[rel="stylesheet"][type="text/css"], style');
-        
-        // Ensure proper styles are added to the head
-        styles.forEach(style => {
-          if (style.tagName === 'LINK') {
-            const linkClone = style.cloneNode(true);
-            document.head.appendChild(linkClone);
-          } else if (style.tagName === 'STYLE') {
-            const styleClone = style.cloneNode(true);
-            document.head.appendChild(styleClone);
-          }
-        });
+        document.head.innerHTML = ""; // Clear current styles
+        styles.forEach(style => document.head.appendChild(style.cloneNode(true)));
 
         // Clone and modify the body content
         const content = doc.body.cloneNode(true);
