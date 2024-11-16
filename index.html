@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Website Cloner with Reverse Indexing</title>
+  <style>
+     /* General body styling */
+
+
+    body {
+        font-family: Arial, sans-serif;
+        width: 1180px;
+        margin-top: 0px;
+        margin-left: auto;
+        margin-right: auto;
+        -webkit-box-shadow: 0 5px 5px 0px #888;
+        -moz-box-shadow: 0 5px 5px 0px #888;
+        box-shadow: 0 5px 5px 0px #888;
+    }
+
+    /* Year Selector */
+    div#year-selector {
+        float: left;
+        margin-left: 20px;
+        width: 665px;
+    }
+
+    div#year-selector a:link {
+        color: #d46b08;
+        background: #FBF0E5;
+        font-size: 11pt;
+    }
+
+    div#year-selector a:hover {
+        color: #735b29;
+        background: #FBF0E5;
+        font-size: 11pt;
+    }
+
+    div#year-selector a:visited {
+        color: #735b29;
+        background: #FBF0E5;
+        font-size: 11pt;
+    }
+
+    /* Sidebar */
+    div#sidebar {
+        color: #707173;
+        font-size: 11pt;
+        text-decoration: none;
+        float: left;
+        margin-left: 20px;
+    }
+
+    div#sidebar a:link {
+        color: #d46b08;
+        background: #FBF0E5;
+        font-size: 11pt;
+        text-decoration: none;
+        background-image: url('/images/small/Deko2.png');
+        padding-left: 20px;
+        background-position: left;
+        background-repeat: no-repeat;
+    }
+
+    div#sidebar a:hover {
+        color: #735b29;
+        background: #FBF0E5;
+        font-size: 11pt;
+        text-decoration: underline;
+        background-image: url('/images/small/Deko3.png');
+        padding-left: 20px;
+        background-position: left;
+        background-repeat: no-repeat;
+    }
+
+    div#sidebar a:visited {
+        color: #735b29;
+        background: #FBF0E5;
+        font-size: 11pt;
+        text-decoration: none;
+        background-image: url('/images/small/Deko3.png');
+        padding-left: 20px;
+        background-position: left;
+        background-repeat: no-repeat;
+    }
+
+    /* Index Section */
+    div#index {
+        color: #707173;
+        font-size: 12pt;
+        margin-left: 20px;
+        clear: left;
+    }
+
+    div#index a:link {
+        color: #707173;
+    }
+
+    div#index a:visited {
+        color: #735b29;
+    }
+
+    div#index a:hover {
+        color: #d46b08;
+    }
+
+    /* Image */
+    img {
+        border: 1px solid white;
+    }
+
+    /* Footer */
+    div#footer {
+        color: #707173;
+        font-size: 9pt;
+        margin-left: 20px;
+        margin-top: 10px;
+    }
+
+    /* Copyleft Section */
+    div#copyleft {
+        float: left;
+        width: 685px;
+    }
+
+    /* Facebook Section */
+    div#fbook {
+        float: left;
+    }
+
+    div#fbook a:link {
+        color: #707173;
+        text-decoration: none;
+    }
+
+    div#fbook a:visited {
+        color: #735b29;
+        text-decoration: none;
+    }
+
+    div#fbook a:hover {
+        color: #d46b08;
+        text-decoration: underline;
+    }
+
+    /* Horizontal Rule */
+    HR {
+        border-top: 1px dotted #707173;
+        color: #707173;
+        height: 0px;
+        width: 96%;
+        float: left;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+
+  </style>
+</head>
+<body>
+  <h1>Cloned and Modified Website</h1>
+  <div id="content">Loading content...</div>
+
+  <script>
+    const proxyUrl = "https://api.allorigins.win/raw?url="; // CORS proxy
+    const baseUrl = "https://www.saranagati-library.net"; // Replace with the original site URL
+
+    // Function to fetch and modify the page content
+    async function fetchAndModifyPage(url) {
+      try {
+        const response = await fetch(proxyUrl + encodeURIComponent(url));
+        if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
+        const html = await response.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // Clone styles
+        const styles = doc.querySelectorAll('link[rel="stylesheet"][type="text/css"], style');
+        document.head.innerHTML = ""; // Clear current styles
+        styles.forEach(style => document.head.appendChild(style.cloneNode(true)));
+
+        // Clone and modify the body content
+        const content = doc.body.cloneNode(true);
+
+        // Get all the links on the page
+        const links = Array.from(content.querySelectorAll("a[href]"));
+        
+        // Reverse indexing starts after the 46th link
+        const totalLinks = links.length;
+        links.forEach((link, index) => {
+          const originalHref = link.getAttribute("href");
+
+          // Resolve the full URL
+          const resolvedUrl = new URL(originalHref, baseUrl).href;
+
+          // If the index is less than or equal to 45, leave the link unindexed
+          if (index <= 48) {
+            link.setAttribute("href", resolvedUrl); // Ensure the link points to the original URL
+          } else {
+            // Reverse order indexing after the 46th link
+            const currentIndex = String(totalLinks - index).padStart(3, "0");  // Reverse order for indexing
+            link.textContent = `${currentIndex} ${link.textContent}`;
+            link.setAttribute("href", resolvedUrl); // Ensure the link points to the original URL
+          }
+
+          // Add event listener to handle clicks without page reload
+          link.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default link action
+            fetchAndModifyPage(resolvedUrl); // Fetch and modify the linked page
+          });
+        });
+
+        // Replace content
+        const contentDiv = document.getElementById("content");
+        contentDiv.innerHTML = ""; // Clear current content
+        contentDiv.appendChild(content);
+
+      } catch (error) {
+        console.error("Error fetching or processing the page:", error);
+        document.getElementById("content").innerHTML = `<p>Error loading page: ${error.message}</p>`;
+      }
+    }
+
+    // Load the initial page
+    fetchAndModifyPage(baseUrl);
+  </script>
+</body>
+</html>
